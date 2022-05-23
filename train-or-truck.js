@@ -27,7 +27,15 @@ function Train(driver) {
   // };
 }
 
+function Train(driver) {
+  Vehicle.call( this, driver)
+  this.type = 'passenger'; // 'passenger', 'freight', 'mail'
+  }
+
 function Truck(driver) {
+
+ 
+
   Vehicle.call(this, driver);
   // this.driver = driver;
   // this.speed = 0;
@@ -43,16 +51,21 @@ function Truck(driver) {
   // this.loadCargo = function (cargo) {
   //   return this;
   // };
+
 }
 Truck.prototype.loadCargo = function (cargo = []) {
   this.cargo = [cargo];
   return this.cargo;
 };
 
+
+
+
 Truck.prototype.unloadCargo = function () {
   this.cargo[this.cargo.length - 1];
   return this.cargo.pop();
 };
+
 
 // экспорт Vehicle, Train, Truc в файл с тестами
 module.exports = { Vehicle, Train, Truck };

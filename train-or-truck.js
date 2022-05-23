@@ -3,11 +3,6 @@
 function Vehicle(driver) {
   this.driver = driver;
   this.speed = 0;
-}
-function Train(driver) {
-  this.driver = driver;
-  this.type = 'passenger'; // 'passenger', 'freight', 'mail'
-  this.speed = 0;
   this.drive = function (kmh) {
     this.speed = kmh;
     return `${this.driver} driving at ${kmh} kilometers per hour`;
@@ -17,27 +12,30 @@ function Train(driver) {
     return `${this.driver} has stopped`;
   };
 }
+
+function Train(driver) {
+  Vehicle.call( this, driver)
+  this.type = 'passenger'; // 'passenger', 'freight', 'mail'
+  }
 
 function Truck(driver) {
-  this.driver = driver;
-  this.speed = 0;
+  Vehicle.call( this, driver)
   this.cargo = [];
-  this.drive = function (kmh) {
-    this.speed = kmh;
-    return `${this.driver} driving at ${kmh} kilometers per hour`;
-  };
-  this.stop = function () {
-    this.speed = 0;
-    return `${this.driver} has stopped`;
-  };
-  this.loadCargo = function (cargo) {
-    return this;
-  };
 }
 
-Truck.prototype.unloadCargo = function () {
+Truck.prototype.loadCargo = function (cargo) {
+  this.cargo.push(cargo)
   return this.cargo;
 };
+
+
+Truck.prototype.unloadCargo = function () {
+  let res = this.cargo[ this.cargo.length-1];
+  this.cargo.pop()
+  return res
+};
+
+
 // экспорт Vehicle, Train, Truc в файл с тестами
 module.exports = { Vehicle, Train, Truck };
 
